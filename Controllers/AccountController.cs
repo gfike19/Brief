@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Brief.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brief.Controllers
@@ -19,9 +20,22 @@ namespace Brief.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register()
+        public ActionResult Register(AccountRegisterViewModel viewModel)
         {
-            return View();
+            // If the ModelState is valid...
+
+            // Instantiate a User object
+
+            // Create the user
+
+            // If the user was successfully created...
+
+            // Sign-in the user and redirect them to the web app's "Home" page
+
+            // If there were errors...
+
+            // Add model errors
+            return View(viewModel);
         }
     }
 }

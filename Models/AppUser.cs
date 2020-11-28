@@ -6,9 +6,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Brief.Models
 {
-    //public class User : IdentityUser
-    public class User
+    public class AppUser : IdentityUser
+    //public class User
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public ICollection<Blog> Blogs { get; set; }
     }
 }

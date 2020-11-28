@@ -23,12 +23,15 @@ namespace Brief.Controllers
         {
             using (var context = new Context())
             {
+                /*
                 context.Blogs.Add(new Blog()
                 {
                     Title = "Test Post",
                     Content = "Blog Content will go here."
-                });
+                }) ;
+                context.SaveChanges();
                 context.Dispose();
+                */
             }
             return View();
         }

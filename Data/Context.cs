@@ -4,24 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Brief.Data
 {
     //public class Context : IdentityDbContext<User>
-    public class Context : DbContext
+    public class Context : IdentityDbContext<AppUser>
     {
-        /*
         public Context()
-           : base("Brief")
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
         }
-        */
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
 
-       
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -46,6 +44,11 @@ namespace Brief.Data
                 .Property(e => e.Duration)
                 .HasPrecision(5, 1);
             */
+        }
+
+        internal static DbContext Get<T>()
+        {
+            throw new NotImplementedException();
         }
     }
 }

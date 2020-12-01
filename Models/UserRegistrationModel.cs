@@ -4,17 +4,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Brief.ViewModels
+namespace Brief.Models
 {
-    public class AccountRegisterViewModel
+    public class UserRegistrationModel
     {
-        [Required]
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 6, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name = "Confirm Password")]
+        [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Brief.Data;
+//using Brief.Data;
 
 namespace Brief.Controllers
 {
@@ -20,10 +20,9 @@ namespace Brief.Controllers
         }
 
         public IActionResult Index()
-        {
+        {/*
             using (var context = new Context())
             {
-                /*
                 context.Blogs.Add(new Blog()
                 {
                     Title = "Test Post",
@@ -31,8 +30,8 @@ namespace Brief.Controllers
                 }) ;
                 context.SaveChanges();
                 context.Dispose();
-                */
             }
+            */
             return View();
         }
 

@@ -1,8 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Home/_HomeLayout.cshtml";
+}
+
+@{
+    string welcomeMessage = "Recent Blogs";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @*<h1 class="display-4">Welcome</h1>*@
+    <h1 class="display-4"> @welcomeMessage</h1>
+</div>
+
+<div class="text-center">
+    <iframe id="Preview1" src="../blog/displayblog/1" width=30% height="315" scrolling="No"></iframe>
+    <iframe id="Preview2" src="../blog/displayblog/2" width=30% height="315" scrolling="No"></iframe>
+    <iframe id="Preview3" src="../blog/displayblog/3" width=30% height="315" scrolling="No"></iframe>
+    <iframe id="Preview4" src="../blog/displayblog/4" width=30% height="315" scrolling="No"></iframe>
+    <iframe id="Preview5" src="../blog/displayblog/5" width=30% height="315" scrolling="No"></iframe>
+    <iframe id="Preview6" src="../blog/displayblog/6" width=30% height="315" scrolling="No"></iframe>
 </div>

@@ -2,40 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Brief.ViewModels;
+using AutoMapper;
+using Brief.Areas.Identity.Data;
+using Brief.Models;
+//using Brief.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brief.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Register()
+        [HttpGet]
+        public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(AccountRegisterViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(UserRegistrationModel userModel)
         {
-            // If the ModelState is valid...
+            return View();
+        }
 
-            // Instantiate a User object
-
-            // Create the user
-
-            // If the user was successfully created...
-
-            // Sign-in the user and redirect them to the web app's "Home" page
-
-            // If there were errors...
-
-            // Add model errors
-            return View(viewModel);
+        private readonly IMapper _mapper;
+        private readonly UserManager<BriefUser> _userManager;
+        public AccountController(IMapper mapper, UserManager<BriefUser> userManager)
+        {
+            _mapper = mapper;
+            _userManager = userManager;
         }
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Brief.Areas.Identity.Data;
 using Brief.Models;
+using AutoMapper;
 
 namespace Brief
 {
@@ -29,6 +30,7 @@ namespace Brief
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<BriefContext>(options =>
         // options.UseSqlite(
         options.UseSqlServer(
@@ -39,6 +41,7 @@ namespace Brief
             */
             services.AddIdentity<BriefUser, AppRole>()
                 //.AddDefaultUI(UIFramework.Bootstrap4)
+                .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<BriefContext>()
                 .AddDefaultTokenProviders();
             services.AddControllersWithViews();

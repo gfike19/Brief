@@ -21,9 +21,24 @@ namespace Brief.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(UserRegistrationModel userModel)
+        public async Task<IActionResult> Register(UserRegistrationModel userModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(userModel);
+            }
+            var user = _mapper.Map<BriefUser>(userModel);
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View(userModel);
+            }
+            await _userManager.AddToRoleAsync(user, "User");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         private readonly IMapper _mapper;

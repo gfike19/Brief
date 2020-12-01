@@ -21,6 +21,7 @@ namespace Brief.Areas.Identity
                         context.Configuration.GetConnectionString("BriefContextConnection")));
 
                 services.AddIdentityCore<BriefUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<BriefContext>();
             });
         }

@@ -9,5 +9,7 @@ namespace Brief.Areas.Identity.Data
     // Add profile data for application users by adding properties to the BriefUser class
     public class BriefUser : IdentityUser
     {
+        public string FullName { get; internal set; }
+        public DateTime BirthDate { get; internal set; }
     }
 }

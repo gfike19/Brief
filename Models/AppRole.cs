@@ -10,6 +10,7 @@ namespace Brief.Models
     {
         public AppRole() : base() { }
         public AppRole(string name) : base(name) { }
-        // extra properties here 
+        // extra properties here
+        public string Description { get; set; }
     }
 }

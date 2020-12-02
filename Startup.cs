@@ -100,7 +100,7 @@ namespace Brief
             app.UseAuthentication();
             app.UseAuthorization();
 
-            MyIdentityDataInitializer.SeedData(userManager, roleManager);
+            //MyIdentityDataInitializer.SeedData(userManager, roleManager);
             //MyIdentityDataInitializer.SeedUsers(userManager);
 
             app.UseEndpoints(endpoints =>

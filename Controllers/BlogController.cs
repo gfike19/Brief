@@ -12,7 +12,7 @@ namespace Brief.Controllers
         
         public ActionResult DisplayBlog(int id)
         {
-            var blog = new Blog() { Creator = "Justin", Title = "First Blog!", Id = 15 };
+            var blog = new Blog() {Title = "First Blog!", Id = 15 };
             return View(blog);
         }
 

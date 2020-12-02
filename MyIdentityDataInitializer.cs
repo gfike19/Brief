@@ -10,8 +10,10 @@ namespace Brief
 {
     public static class MyIdentityDataInitializer
     {
-        public static void SeedData(UserManager<BriefUser> userManager, RoleManager<MyIdentityRole> roleManager)
+        public static void SeedData(UserManager<BriefUser> userManager, RoleManager<AppRole> roleManager)
         {
+            SeedRoles(roleManager);
+            SeedUsers(userManager);
         }
 
         public static void SeedUsers(UserManager<BriefUser> userManager)
@@ -32,7 +34,6 @@ namespace Brief
                 }
             }
 
-
             if (userManager.FindByNameAsync("user2").Result == null)
             {
                 BriefUser user = new BriefUser();
@@ -52,20 +53,19 @@ namespace Brief
 
         public static void SeedRoles(RoleManager<AppRole> roleManager)
         {
-            if (!roleManager.RoleExistsAsync("NormalUser").Result)
+            if (!roleManager.RoleExistsAsync("User").Result)
             {
                 AppRole role = new AppRole();
-                role.Name = "NormalUser";
+                role.Name = "User";
                 role.Description = "Perform normal operations.";
                 IdentityResult roleResult = roleManager.
                 CreateAsync(role).Result;
             }
 
-
-            if (!roleManager.RoleExistsAsync("Administrator").Result)
+            if (!roleManager.RoleExistsAsync("Admin").Result)
             {
                 AppRole role = new AppRole();
-                role.Name = "Administrator";
+                role.Name = "Admin";
                 role.Description = "Perform all the operations.";
                 IdentityResult roleResult = roleManager.
                 CreateAsync(role).Result;

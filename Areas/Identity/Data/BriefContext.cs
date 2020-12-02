@@ -17,14 +17,18 @@ namespace Brief.Data
         {
         }
 
+        public DbSet<BriefUser> BriefUsers { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<AppRole> AppRoles { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<IdentityUserRole<Guid>>().HasKey(p => new { p.UserId, p.RoleId });
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-
-        public Blog[] blogs;
     }
 }

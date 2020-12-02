@@ -80,7 +80,7 @@ namespace Brief
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<BriefUser> userManager, RoleManager<AppRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -99,6 +99,9 @@ namespace Brief
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            MyIdentityDataInitializer.SeedData(userManager, roleManager);
+            //MyIdentityDataInitializer.SeedUsers(userManager);
 
             app.UseEndpoints(endpoints =>
             {

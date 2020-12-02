@@ -12,6 +12,6 @@ namespace Brief.Models
         public BriefUser Creator { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public string[] Comments { get; set; }
+        public string Comments { get; set; }
     }
 }

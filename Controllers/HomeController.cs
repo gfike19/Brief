@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+//using Brief.Data;
 
 namespace Brief.Controllers
 {
@@ -18,8 +19,19 @@ namespace Brief.Controllers
             _logger = logger;
         }
 
-        public ActionResult Index()
-        {
+        public IActionResult Index()
+        {/*
+            using (var context = new Context())
+            {
+                context.Blogs.Add(new Blog()
+                {
+                    Title = "Test Post",
+                    Content = "Blog Content will go here."
+                }) ;
+                context.SaveChanges();
+                context.Dispose();
+            }
+            */
             return View();
         }
 

@@ -6,17 +6,42 @@
 @{
     string welcomeMessage = "Recent Blogs";
 }
+<head>
+    <link rel="stylesheet" href="~/css/testCSS.css" />
+</head>
+
+<a href="../Home/Privacy">
+    <div class="new-blog">
+    </div>
+</a>
+
 
 <div class="text-center">
-    @*<h1 class="display-4">Welcome</h1>*@
     <h1 class="display-4"> @welcomeMessage</h1>
 </div>
 
-<div class="text-center">
-    <iframe id="Preview1" src="../blog/displayblog/1" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview2" src="../blog/displayblog/2" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview3" src="../blog/displayblog/3" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview4" src="../blog/displayblog/4" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview5" src="../blog/displayblog/5" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview6" src="../blog/displayblog/6" width=30% height="315" scrolling="No"></iframe>
-</div>
+<section class="blog-preview-area">
+    @for (int i = 0; i < 15; i++)
+    {
+    <div class="preview-block">
+        @*<div class="clr"></div>*@
+        <div class="preview-block-2">
+            <div class="preview-header">
+                First Blog
+            </div>
+            <div class="preview-body">
+                At autem exerci aliquip stet ipsum lorem dolore diam nonummy nulla ut magna molestie dolore invidunt et euismod dolore vel
+                At autem exerci aliquip stet ipsum lorem dolore diam nonummy nulla ut magna molestie dolore invidunt et euismod dolore vel
+                At autem exerci aliquip stet ipsum lorem dolore diam nonummy nulla ut magna molestie dolore invidunt et euismod dolore vel
+            </div>
+            <div class="preview-footer">
+                <a href="../blog/displayblog">Read More</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    }
+</section>
+

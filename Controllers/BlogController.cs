@@ -15,5 +15,10 @@ namespace Brief.Controllers
             var blog = new Blog() { Creator = "Justin", Title = "First Blog!", Id = 15 };
             return View(blog);
         }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }

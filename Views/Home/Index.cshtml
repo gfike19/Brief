@@ -2,78 +2,68 @@
     ViewData["Title"] = "Home";
 }
 
-@*@{
-    string welcomeMessage = "Recent Blogs";
-}*@
 <head>
     <link rel="stylesheet" href="~/css/Brief.css" />
 </head>
 
-<a href="../Home/Privacy">
-    <div class="new-blog">
-    </div>
-</a>
-
-<div class="container">
-    <h1 class="display-4 text-center"> Recent Blogs</h1>
+<div>
+    <h1 class="display-4 mb-4 text-center">Recent Blogs</h1>
 </div>
 
-<div class="row mb-2">
-    <div class="col-md-4">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
-            <div class="col p-4 d-flex flex-column position-static" style="max-height:350px">
-                <h3 class="mb-0">Blog Title</h3>
-                <div class="mb-2 text-muted">Nov 12, 2020</div>
-                <p class="card-text mb-auto overflow-hidden" >
-                    While from radiant above but raven nothing this
-                    open word lattice the pondered a grave word only disaster upon have throws in
-                    being rare than quaff as i still nevernevermore
-                    My so said undaunted stern from is this was bust stepped of is though all
-                    vainly expressing that when cried While from radiant above but raven nothing this
-                    open word lattice the pondered a grave word only disaster upon have throws in
-                    being rare than quaff as i still nevernevermore
-                    My so said undaunted stern from is this was bust stepped of is though all
-                    vainly expressing that when cried
-                    While from radiant above but raven nothing this
-                    open word lattice the pondered a grave word only disaster upon have throws in
-                    being rare than quaff as i still nevernevermore
-                    My so said undaunted stern from is this was bust stepped of is though all
-                    vainly expressing that when cried While from radiant above but raven nothing this
-                    open word lattice the pondered a grave word only disaster upon have throws in
-                    being rare than quaff as i still nevernevermore
-                    My so said undaunted stern from is this was bust stepped of is though all
-                    vainly expressing that when cried
-                </p>
+<div>
+    @for (byte i = 0; i < 5; i++)
+    {
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                        <h4 class="mb-0">Post title</h4>
+                        <div class="mb-1 text-muted">Nov 11, 2020</div>
+                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                    <div class="card-footer bg-dark text-right" style="width: 100%">
+                        <a href="#" class="stretched-link text-white">Continue reading</a>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer bg-dark text-right" style="width: 100%">
-                <a href="#" class="stretched-link">Continue reading</a>
+            <div class="col-md-4">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                        <h4 class="mb-0">Post title</h4>
+                        <div class="mb-1 text-muted">Nov 11, 2020</div>
+                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                    <div class="card-footer bg-dark text-right" style="width: 100%">
+                        <a href="#" class="stretched-link text-white">Continue reading</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0">Post title</h3>
-                <div class="mb-1 text-muted">Nov 11, 2020</div>
-                <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="stretched-link">Continue reading</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0">Post title</h3>
-                <div class="mb-1 text-muted">Nov 11, 2020</div>
-                <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="stretched-link">Continue reading</a>
+            <div class="col-md-4">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                        <h4 class="mb-0">Post title</h4>
+                        <div class="mb-1 text-muted">Nov 11, 2020</div>
+                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                    <div class="card-footer bg-dark text-right" style="width: 100%">
+                        <a href="#" class="stretched-link text-white">Continue reading</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="tester">
-    hello
-
+    }
 </div>
 
+<div>
+    <nav class="m-0">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>
 
+<div class="clearfix"></div>

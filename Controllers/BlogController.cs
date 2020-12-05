@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Brief.Models;
+using Brief.Areas.Identity;
 
 namespace Brief.Controllers
 {
     public class BlogController : Controller
     {
-        
-        public ActionResult DisplayBlog(int id)
-        {
-            var blog = new Blog() {Title = "First Blog!", Id = 15 };
-            return View(blog);
-        }
 
         public ActionResult Index()
         {
-            return View();
+            var blog = new Blog() { Id = 1, Title = "First Blog!", Content = "And though quaint purple once chamber bird store off be remember other a me whispered minute and rustling as bird" };
+            return View(blog);
         }
     }
 }

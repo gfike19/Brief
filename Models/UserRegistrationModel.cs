@@ -8,7 +8,11 @@ namespace Brief.Models
 {
     public class UserRegistrationModel
     {
+        [Required(ErrorMessage = "First Name is required")]
+        [DataType(DataType.Text)]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Last Name is required")]
+        [DataType(DataType.Text)]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]

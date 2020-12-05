@@ -1,31 +1,20 @@
-﻿.tester {
-   text-align:center;
+﻿.blog-tile-h {
+   height: 350px;
 }
 
-
-
-
-
-/*@media (max-width:600px) {
-    .size-tester {
-        color: blue;
-    }
+.signin-form {
+    padding:20px;
 }
 
-@media (width: 768px) {
-    .size-tester {
-        color: green;
-    }
+.signin-form .form-group {
+    padding: 5px;
 }
 
-@media (width: 992px) {
-    .size-tester {
-        color: yellow;
-    }
+.signin-form input[type="text"]{
+    padding: 8px;
+    width: 100%;
 }
 
-@media (width: 1200px) {
-    .size-tester {
-        color: purple;
-    }
-}*/
+.text-black {
+    color: black;
+}

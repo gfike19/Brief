@@ -1,0 +1,25 @@
+﻿@model List<Brief.Models.Blog>
+@{
+    // Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brief</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+    @foreach
+(var obj in Model)
+    {
+     <div style="display:inline-flex;flex-wrap:wrap;flex-direction:row;max-width:30%">
+            <h3>Title: @obj.Title</h3>
+            <p>Created By: @obj.CreatorName</p>
+            <p>@obj.Content</p>
+     </div>
+    }
+        </div>
+    </body>
+</html>

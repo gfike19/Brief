@@ -16,5 +16,10 @@ namespace Brief.Controllers
             var blog = new Blog() { Id = 1, Title = "First Blog!", Content = "And though quaint purple once chamber bird store off be remember other a me whispered minute and rustling as bird" };
             return View(blog);
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }

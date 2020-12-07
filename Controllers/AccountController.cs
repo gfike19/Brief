@@ -19,6 +19,12 @@ namespace Brief.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            //Verify login info?
+                return View("~/Views/Home/Index.cshtml");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(UserRegistrationModel userModel)

@@ -10,7 +10,7 @@
 </div>
 
 <div>
-    @for (byte i = 0; i < 5; i++)
+    @*@for (byte i = 0; i < 5; i++)
     {
         <div class="row mb-2">
             <div class="col-md-4">
@@ -51,11 +51,8 @@
             </div>
         </div>
     }
-</div>
+</div>*@
 
-<div>
-    <h1 class="display-4 mb-4 text-center">Recent Blogs</h1>
-</div>
 
 <div>
     @foreach(var obj in Model)

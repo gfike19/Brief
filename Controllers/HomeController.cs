@@ -1,5 +1,6 @@
 ﻿using Brief.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,33 +15,31 @@ namespace Brief.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private IConfiguration Configuration;
 
+        public HomeController(IConfiguration _configuration)
+        {
+            Configuration = _configuration;
+        }
+        /*
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
+        */
 
         public IActionResult Index()
-        {/*
-            using (var context = new Context())
-            {
-                context.Blogs.Add(new Blog()
-                {
-                    Title = "Test Post",
-                    Content = "Blog Content will go here."
-                }) ;
-                context.SaveChanges();
-                context.Dispose();
-            }
-            */
+        {
             return View();
         }
 
         public IActionResult Blogs()
         {
-            //string connectionString = ConfigurationManager.ConnectionStrings["Context"].ToString();
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Brief;Integrated Security=True;MultipleActiveResultSets=True";
+            //string connectionString = System.Configuration.ConfigurationManager.AppSettings["BriefContextConnection"];
+            //string connectionString = ConfigurationManager.ConnectionStrings["BriefContextConnection"].ConnectionString;
+            string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
+            //string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Brief;Integrated Security=True;MultipleActiveResultSets=True";
             string sql = "SELECT * FROM dbo.Blogs";
             SqlConnection conn = new SqlConnection(connectionString);
 

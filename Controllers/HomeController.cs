@@ -26,11 +26,31 @@ namespace Brief.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
+            string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
+            string sql = "SELECT * FROM dbo.Blogs";
+            SqlConnection conn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            var model = new List<Brief.Models.Blog>();
 
+            using (conn)
+            {
+                conn.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var blog = new Blog();
+                    blog.CreatorName = rdr["CreatorName"].ToString();
+                    blog.Title = rdr["Title"].ToString();
+                    blog.Content = rdr["Content"].ToString();
+                    model.Add(blog);
+                }
+            }
+            return View(model);
+            //return View();
+        }
         public IActionResult Blogs()
         {
+            
             string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
             string sql = "SELECT * FROM dbo.Blogs";
             SqlConnection conn = new SqlConnection(connectionString);

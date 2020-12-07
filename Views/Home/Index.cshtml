@@ -1,22 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Home/_HomeLayout.cshtml";
-}
+﻿@model List<Brief.Models.Blog>
+@{ ViewData["Title"] = "Home"; }
 
-@{
-    string welcomeMessage = "Recent Blogs";
-}
+<head>
+    <link rel="stylesheet" href="~/css/Brief.css" />
+</head>
 
-<div class="text-center">
-    @*<h1 class="display-4">Welcome</h1>*@
-    <h1 class="display-4"> @welcomeMessage</h1>
+<div>
+    <h1 class="display-4 mb-4 text-center">Recent Blogs</h1>
 </div>
 
-<div class="text-center">
-    <iframe id="Preview1" src="../blog/displayblog/1" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview2" src="../blog/displayblog/2" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview3" src="../blog/displayblog/3" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview4" src="../blog/displayblog/4" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview5" src="../blog/displayblog/5" width=30% height="315" scrolling="No"></iframe>
-    <iframe id="Preview6" src="../blog/displayblog/6" width=30% height="315" scrolling="No"></iframe>
+<div>
+    @foreach(var obj in Model)
+    {
+<div class="row mb-2">
+    <div class="col-md-4">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                <h4 class="mb-0">Title: @obj.Title</h4>
+                <div class="mb-1">Author: @obj.CreatorName</div>
+                <div class="mb-1 text-muted">@obj.TimeCreated</div>
+                <p class="mb-auto">@obj.Content</p>
+            </div>
+            <div class="card-footer bg-dark text-right" style="width: 100%">
+                <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
+            </div>
+        </div>
+    </div>
+    </div>}
 </div>
+
+<div>
+    <nav class="m-0">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="clearfix"></div>

@@ -23,7 +23,8 @@ namespace Brief
                 BriefUser user = new BriefUser();
                 user.UserName = "user1";
                 user.Email = "user1@localhost";
-                user.FullName = "Nancy Davolio";
+                user.FirstName = "Nancy";
+                user.LastName = "Davolio";
                 user.BirthDate = new DateTime(1960, 1, 1);
 
                 IdentityResult result = userManager.CreateAsync(user, "password_goes_here").Result;
@@ -39,7 +40,8 @@ namespace Brief
                 BriefUser user = new BriefUser();
                 user.UserName = "user2";
                 user.Email = "user2@localhost";
-                user.FullName = "Mark Smith";
+                user.FirstName = "Mark";
+                user.LastName = "Smith";
                 user.BirthDate = new DateTime(1965, 1, 1);
 
                 IdentityResult result = userManager.CreateAsync(user, "password_goes_here").Result;

@@ -1,0 +1,23 @@
+﻿@model Brief.Models.Blog
+@{
+    ViewData["Title"] = "Blog - Title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Brief.css" />
+</head>
+<div>
+    <h1 class="display-3 mb-2">@Model.Title</h1>
+    <div class="mb-1 text-muted float-left">Nov 11, 2020</div>
+    <div class="mb-1 text-muted float-right">Justin Norman</div>
+</div>
+<div class="clearfix"></div>
+<hr />
+<div>
+    <p class="border border-dark p-3"> @Model.Content </p>
+</div>
+<div>
+    <a href="../Home" class="btn btn-dark" role="button">Back</a>
+</div>
+

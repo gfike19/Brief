@@ -1,0 +1,20 @@
+﻿.blog-tile-h {
+   height: 350px;
+}
+
+.signin-form {
+    padding:20px;
+}
+
+.signin-form .form-group {
+    padding: 5px;
+}
+
+.signin-form input[type="text"]{
+    padding: 8px;
+    width: 100%;
+}
+
+.text-black {
+    color: black;
+}

@@ -15,19 +15,14 @@ namespace Brief.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
         private IConfiguration Configuration;
 
-        public HomeController(IConfiguration _configuration)
+        public HomeController(IConfiguration _configuration, ILogger<HomeController> logger)
         {
             Configuration = _configuration;
-        }
-        /*
-        public HomeController(ILogger<HomeController> logger)
-        {
             _logger = logger;
         }
-        */
 
         public IActionResult Index()
         {
@@ -36,16 +31,12 @@ namespace Brief.Controllers
 
         public IActionResult Blogs()
         {
-            //string connectionString = System.Configuration.ConfigurationManager.AppSettings["BriefContextConnection"];
-            //string connectionString = ConfigurationManager.ConnectionStrings["BriefContextConnection"].ConnectionString;
             string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
-            //string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Brief;Integrated Security=True;MultipleActiveResultSets=True";
             string sql = "SELECT * FROM dbo.Blogs";
             SqlConnection conn = new SqlConnection(connectionString);
-
             SqlCommand cmd = new SqlCommand(sql, conn);
-
             var model = new List<Brief.Models.Blog>();
+            
             using (conn)
             {
                 conn.Open();

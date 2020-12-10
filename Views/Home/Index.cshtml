@@ -9,8 +9,8 @@
     <h1 class="display-4 mb-4 text-center">Recent Blogs</h1>
 </div>
 
-@*<div>
-    @for (byte i = 0; i < 5; i++)
+<div>
+    @*@for (byte i = 0; i < 5; i++)
     {
         <div class="row mb-2">
             <div class="col-md-4">
@@ -54,110 +54,36 @@
 </div>*@
 
 
-    @*<div>
-        @foreach (var obj in Model)
-        {
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">Title: @obj.Title</h4>
-                            <div class="mb-1">Author: @obj.CreatorName</div>
-                            <div class="mb-1 text-muted">@obj.TimeCreated</div>
-                            <p class="mb-auto">@obj.Content</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
-                    </div>
-                </div>
-            </div>}
-    </div>*@
-
-    @*Testing for specific blog*@
-    @*<div>
-        @foreach (var obj in Model)
-        {
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">Title: @obj.Title</h4>
-                            <div class="mb-1">Author: @obj.CreatorName</div>
-                            <div class="mb-1 text-muted">@obj.TimeCreated</div>
-                            <p class="mb-auto">@obj.Content</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
-                    </div>
-                </div>
-            </div>}
-    </div>*@
-
-    <div>
-        @{ 
-            int i = 0;
-            int totalBlogs = Model.Count;
-            if (totalBlogs < 15) {
-
-            }
-            }
-        
-        for (byte i = 0; i < 5; i++)
-        {
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">@Model[0].Title</h4>
-                            <div class="mb-1 text-muted">@Model[0].CreatorName</div>
-                            <div class="mb-1 text-muted">@Model[0].TimeCreated</div>
-                            <p class="mb-auto">@Model[0].Content</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">Post title</h4>
-                            <div class="mb-1 text-muted">Nov 11, 2020</div>
-                            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">Post title</h4>
-                            <div class="mb-1 text-muted">Nov 11, 2020</div>
-                            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
-                    </div>
-                </div>
+<div>
+    @foreach(var obj in Model)
+    {
+<div class="row mb-2">
+    <div class="col-md-4">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                <h4 class="mb-0">Title: @obj.Title</h4>
+                <div class="mb-1">Author: @obj.CreatorName</div>
+                <div class="mb-1 text-muted">@obj.TimeCreated</div>
+                <p class="mb-auto">@obj.Content</p>
             </div>
-        }
+            <div class="card-footer bg-dark text-right" style="width: 100%">
+                <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
+            </div>
+        </div>
     </div>
+    </div>}
+</div>
 
-    <div>
-        <nav class="m-0">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
+<div>
+    <nav class="m-0">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link text-dark" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>
 
-    <div class="clearfix"></div>
+<div class="clearfix"></div>

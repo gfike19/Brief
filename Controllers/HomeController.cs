@@ -46,7 +46,7 @@ namespace Brief.Controllers
                 }
             }
             return View(model);
-            //return View();
+            return View();
         }
         public IActionResult Blogs()
         {

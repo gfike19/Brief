@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Brief.Areas.Identity.Data;
 using Brief.Models;
+using Microsoft.AspNetCore.Authentication;
 //using Brief.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,16 +14,30 @@ namespace Brief.Controllers
 {
     public class AccountController : Controller
     {
+
+        private readonly IMapper _mapper;
+        private readonly UserManager<BriefUser> _userManager;
+        private readonly SignInManager<BriefUser> _signInManager;
+        public AccountController(IMapper mapper, UserManager<BriefUser> userManager, SignInManager<BriefUser> signInManager)
+        {
+            _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        [BindProperty]
+        public BriefUser.InputModel Input { get; set; }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
-            //Verify login info?
-                return View("~/Views/Home/Index.cshtml");
+            return View();
         }
 
         [HttpPost]
@@ -47,12 +62,31 @@ namespace Brief.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        private readonly IMapper _mapper;
-        private readonly UserManager<BriefUser> _userManager;
-        public AccountController(IMapper mapper, UserManager<BriefUser> userManager)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(BriefUser.InputModel input)
         {
-            _mapper = mapper;
-            _userManager = userManager;
+            if (!ModelState.IsValid)
+            {
+                return View(input);
+            }            
+            var result = await _signInManager.PasswordSignInAsync(input.Email, input.Password, input.RememberMe, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+                return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

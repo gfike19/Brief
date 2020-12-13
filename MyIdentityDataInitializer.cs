@@ -13,45 +13,45 @@ namespace Brief
         public static void SeedData(UserManager<BriefUser> userManager, RoleManager<AppRole> roleManager)
         {
             SeedRoles(roleManager);
-            SeedUsers(userManager);
+            //SeedUsers(userManager);
         }
 
-        public static void SeedUsers(UserManager<BriefUser> userManager)
-        {
-            if (userManager.FindByNameAsync("user1").Result == null)
-            {
-                BriefUser user = new BriefUser();
-                user.UserName = "user1";
-                user.Email = "user1@localhost";
-                user.FirstName = "Nancy";
-                user.LastName = "Davolio";
-                user.BirthDate = new DateTime(1960, 1, 1);
+        //public static void SeedUsers(UserManager<BriefUser> userManager)
+        //{
+        //    if (userManager.FindByNameAsync("user1").Result == null)
+        //    {
+        //        BriefUser user = new BriefUser();
+        //        user.UserName = "user1";
+        //        user.Email = "user1@localhost";
+        //        user.FirstName = "Nancy";
+        //        user.LastName = "Davolio";
+        //        user.BirthDate = new DateTime(1960, 1, 1);
 
-                IdentityResult result = userManager.CreateAsync(user, "password_goes_here").Result;
+        //        IdentityResult result = userManager.CreateAsync(user, "password_goes_here").Result;
 
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user, "NormalUser").Wait();
-                }
-            }
+        //        if (result.Succeeded)
+        //        {
+        //            userManager.AddToRoleAsync(user, "NormalUser").Wait();
+        //        }
+        //    }
 
-            if (userManager.FindByNameAsync("user2").Result == null)
-            {
-                BriefUser user = new BriefUser();
-                user.UserName = "user2";
-                user.Email = "user2@localhost";
-                user.FirstName = "Mark";
-                user.LastName = "Smith";
-                user.BirthDate = new DateTime(1965, 1, 1);
+        //    if (userManager.FindByNameAsync("user2").Result == null)
+        //    {
+        //        BriefUser user = new BriefUser();
+        //        user.UserName = "user2";
+        //        user.Email = "user2@localhost";
+        //        user.FirstName = "Mark";
+        //        user.LastName = "Smith";
+        //        user.BirthDate = new DateTime(1965, 1, 1);
 
-                IdentityResult result = userManager.CreateAsync(user, "password_goes_here").Result;
+        //        IdentityResult result = userManager.CreateAsync(user, "password_goes_here").Result;
 
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user, "Administrator").Wait();
-                }
-            }
-        }
+        //        if (result.Succeeded)
+        //        {
+        //            userManager.AddToRoleAsync(user, "Administrator").Wait();
+        //        }
+        //    }
+        //}
 
         public static void SeedRoles(RoleManager<AppRole> roleManager)
         {

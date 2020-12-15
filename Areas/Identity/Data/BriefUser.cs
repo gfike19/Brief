@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Brief.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -15,30 +16,11 @@ namespace Brief.Areas.Identity.Data
     public class BriefUser : IdentityUser
     {
 
-        //[BindProperty]
-        //public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            public string FirstName { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
-
-        ////public string FullName { get; internal set; }
-        //public string FirstName { get; set; }
-        //public string LastName { get; set; }
-        //public DateTime BirthDate { get; set; }
-        //public DateTime JoinedOn { get; internal set; }
-        //public int RoleId { get; set; }
+        //public string FullName { get; internal set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public DateTime JoinedOn { get; internal set; }
+        public int RoleId { get; set; }
     }
 }

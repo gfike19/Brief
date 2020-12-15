@@ -26,8 +26,11 @@ namespace Brief.Controllers
             _signInManager = signInManager;
         }
 
+        //[BindProperty]
+        //public BriefUser.InputModel Input { get; set; }
+
         [BindProperty]
-        public BriefUser.InputModel Input { get; set; }
+        public BriefUser Input { get; set; }
 
         [HttpGet]
         public IActionResult Register()
@@ -51,6 +54,7 @@ namespace Brief.Controllers
             }
             var user = _mapper.Map<BriefUser>(userModel);
             user.EmailConfirmed = true;
+            user.JoinedOn = DateTime.Now;
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
             {
@@ -66,12 +70,12 @@ namespace Brief.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(BriefUser.InputModel input)
+        public async Task<IActionResult> Login(LoggedUserModel input)
         {
             if (!ModelState.IsValid)
             {
                 return View(input);
-            }            
+            }
             var result = await _signInManager.PasswordSignInAsync(input.Email, input.Password, input.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
@@ -102,7 +106,7 @@ namespace Brief.Controllers
 
             LoggedUserModel user = new LoggedUserModel
             {
-                CreatorUserName = username,
+                Email = username,
                 CreatorFirstName = rdr["FirstName"].ToString(),
                 CreatorID = rdr["Id"].ToString()
             };

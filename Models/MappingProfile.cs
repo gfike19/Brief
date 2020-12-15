@@ -14,6 +14,9 @@ namespace Brief.Models
         {
             CreateMap<UserRegistrationModel, BriefUser>()
                 .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+            CreateMap<CreateBlog, Blog>()
+                .ForMember(b => b.Title, opt => opt.MapFrom(x => x.BlogTitle))
+                .ForMember(b => b.Content, opt => opt.MapFrom(x => x.BlogContent));
         }
     }
 }

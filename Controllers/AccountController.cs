@@ -49,6 +49,8 @@ namespace Brief.Controllers
                 return View(userModel);
             }
             var user = _mapper.Map<BriefUser>(userModel);
+            user.EmailConfirmed = true;
+            user.JoinedOn = DateTime.Now;
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
             {

@@ -28,17 +28,15 @@ namespace Brief.Areas.Identity.Data
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            public string FirstName { get; set; }
-
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
 
-        ////public string FullName { get; internal set; }
-        //public string FirstName { get; set; }
-        //public string LastName { get; set; }
-        //public DateTime BirthDate { get; set; }
-        //public DateTime JoinedOn { get; internal set; }
-        //public int RoleId { get; set; }
+        //public string FullName { get; internal set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public DateTime JoinedOn { get; internal set; }
+        public int RoleId { get; set; }
     }
 }

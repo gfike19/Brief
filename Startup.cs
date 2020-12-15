@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Brief.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Brief.Areas.Identity.Data;
 using Brief.Models;
 using AutoMapper;

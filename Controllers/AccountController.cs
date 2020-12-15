@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -49,6 +50,7 @@ namespace Brief.Controllers
                 return View(userModel);
             }
             var user = _mapper.Map<BriefUser>(userModel);
+            user.EmailConfirmed = true;
             var result = await _userManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded)
             {
@@ -73,6 +75,7 @@ namespace Brief.Controllers
             var result = await _signInManager.PasswordSignInAsync(input.Email, input.Password, input.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+                //GetUserInfo(input.Email);
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
             else
@@ -87,6 +90,22 @@ namespace Brief.Controllers
         {
             await _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        public void GetUserInfo(string username)
+        {
+            SqlConnection con = new SqlConnection(GetConString.ConString());
+            string query = "SELECT FirstName, Id FROM AspNetUsers WHERE UserName = " + username;
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            con.Open();
+
+            LoggedUserModel user = new LoggedUserModel
+            {
+                CreatorUserName = username,
+                CreatorFirstName = rdr["FirstName"].ToString(),
+                CreatorID = rdr["Id"].ToString()
+            };
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿@model Brief.Models.UserRegistrationModel
+﻿@*@model Brief.Controllers.BlogController*@
+@{ 
+    ViewBag.Title = "Blog Creation";
+}
 
 <head>
     <link rel="stylesheet" href="~/css/Brief.css" />
@@ -11,18 +14,22 @@
 <hr />
 
 <div class="container">
-    <form id="blogCreation">
+    <form id="blogCreation" asp-controller="Blog" asp-action="GetBlogDetails" method="post">
         <div class="form-group">
             <label class="control-label">Blog Title</label>
-            <input class="form-control" />
+            <input class="form-control" name="txtTitle" />
         </div>
         <div class="form-group">
             <label class="control-label">Body</label>
-            <textarea type="text" class="form-control blog-textarea" rows="10"> </textarea>
+            <textarea name="txtContent" type="text" class="form-control blog-textarea" rows="10"> </textarea>
         </div>
         <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Submit" class="btn btn-primary" />
         </div>
     </form>
 </div>
+
+<br />
+
+<h2 style="font-style:italic; color:deeppink">@ViewBag.Result</h2>
 

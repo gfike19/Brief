@@ -12,45 +12,50 @@
     <div>
         @for (byte i = 0; i < 5; i++)
         {
-            <div class="row mb-2">
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">@Model[0].Title</h4>
-                            <div class="mb-1 text-muted">@Model[0].CreatorName</div>
-                            <div class="mb-1 text-muted">@Model[0].TimeCreated</div>
-                            <p class="mb-auto">@Model[0].Content</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                        <h4 class="mb-0">@Model[i].Title</h4>
+                        <div class="mb-1 text-muted">@Model[i].CreatorName</div>
+                        <div class="mb-1 text-muted">@Model[i].TimeCreated</div>
+                        <p class="mb-auto">@Model[i].Content</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">Post title</h4>
-                            <div class="mb-1 text-muted">Nov 11, 2020</div>
-                            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <div class="col p-4 d-flex flex-column position-static blog-tile-h">
-                            <h4 class="mb-0">Post title</h4>
-                            <div class="mb-1 text-muted">Nov 11, 2020</div>
-                            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                        <div class="card-footer bg-dark text-right" style="width: 100%">
-                            <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
-                        </div>
+                    <div class="card-footer bg-dark text-right" style="width: 100%">
+                        <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
                     </div>
                 </div>
             </div>
+    @for (i = 5; i < 10; i++)
+    { 
+    <div class="col-md-4">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                <h4 class="mb-0">@Model[0].Title</h4>
+                <div class="mb-1 text-muted">@Model[i].CreatorName</div>
+                <div class="mb-1 text-muted">@Model[i].TimeCreated</div>
+                <p class="mb-auto">@Model[i].Content</p>
+            </div>
+            <div class="card-footer bg-dark text-right" style="width: 100%">
+                <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
+            </div>
+        </div>
+    </div>
+    }
+
+    <div class="col-md-4">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static blog-tile-h">
+                <h4 class="mb-0">Post title</h4>
+                <div class="mb-1 text-muted">Nov 11, 2020</div>
+                <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer bg-dark text-right" style="width: 100%">
+                <a asp-area="" asp-controller="Blog" asp-action="Index" class="stretched-link text-white">Continue reading</a>
+            </div>
+        </div>
+    </div>
+        </div>
         }
     </div>
 

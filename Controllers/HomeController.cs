@@ -27,7 +27,7 @@ namespace Brief.Controllers
         public ActionResult Index()
         {
             string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
-            string sql = "SELECT * FROM dbo.Blogs";
+            string sql = "SELECT * FROM dbo.Blogs ORDER BY TimeCreated DESC";
             SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(sql, conn);
             var model = new List<Brief.Models.Blog>();

@@ -64,7 +64,7 @@ namespace Brief
                 // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -80,7 +80,7 @@ namespace Brief
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<BriefUser> userManager, RoleManager<AppRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<BriefUser> userManager, RoleManager<AppRole> roleManager, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -111,6 +111,28 @@ namespace Brief
                     //pattern: "{controller=Home}/{action=Blogs}/{id?}");
             endpoints.MapRazorPages();
             });
+
+            CreateUserRoles(services).Wait();
+        }
+
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<BriefUser>>();
+
+            IdentityResult roleResult;
+            //Adding Admin Role
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new AppRole("Admin"));
+            }
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            BriefUser user = await UserManager.FindByEmailAsync("test2@test.com");
+            var User = new BriefUser();
+            await UserManager.AddToRoleAsync(user, "Admin");
         }
     }
 }

@@ -1,22 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Brief.Models;
-using Brief.Areas.Identity;
+using Brief.Data;
 
 namespace Brief.Controllers
 {
     public class BlogController : Controller
     {
+        private readonly BriefContext _context;
+
+        public BlogController(BriefContext context)
+        {
+            _context = context;
+        }
+
         [BindProperty]
         public Blog Input { get; set; }
 
-        public ActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int? id)
         {
-            var blog = new Blog() { Id = 1, Title = "First Blog!", Content = "And though quaint purple once chamber bird store off be remember other a me whispered minute and rustling as bird" };
-            return View(blog);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Blogs.FindAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
         }
 
         public ActionResult Create()

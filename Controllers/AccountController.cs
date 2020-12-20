@@ -26,9 +26,6 @@ namespace Brief.Controllers
             _signInManager = signInManager;
         }
 
-        //[BindProperty]
-        //public BriefUser.InputModel Input { get; set; }
-
         [BindProperty]
         public BriefUser Input { get; set; }
 

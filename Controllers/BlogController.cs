@@ -12,6 +12,7 @@ using System.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using Brief.Data;
 
 namespace Brief.Controllers
 {
@@ -20,16 +21,29 @@ namespace Brief.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<HomeController> _logger;
         private IConfiguration Configuration;
-        public BlogController(IMapper mapper, IConfiguration _configuration, ILogger<HomeController> logger)
+        private readonly BriefContext _context;
+
+        public BlogController(IMapper mapper, IConfiguration _configuration, ILogger<HomeController> logger, BriefContext context)
         {
             _mapper = mapper;
             Configuration = _configuration;
             _logger = logger;
+            _context = context;
         }
 
-        public ActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int? id)
         {
-            var blog = new Blog() { Id = 1, Title = "First Blog!", Content = "And though quaint purple once chamber bird store off be remember other a me whispered minute and rustling as bird" };
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var blog = await _context.Blogs.FindAsync(id);
+            if (blog == null)
+            {
+                return NotFound();
+            }
             return View(blog);
         }
 
@@ -39,6 +53,29 @@ namespace Brief.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult GetBlogDetails()
+        {
+            Blog umodel = new Blog
+            {
+                Title = HttpContext.Request.Form["txtTitle"].ToString(),
+                Content = HttpContext.Request.Form["txtContent"].ToString(),
+                CreatorName = User.Identity.Name.ToString(),
+                TimeCreated = DateTime.Now
+            };
+            int result = umodel.SaveDetails();
+            if (result > 0)
+            {
+                ViewBag.Result = "Data Saved Successfully";
+            }
+            else
+            {
+                ViewBag.Result = "Something Went Wrong";
+            }
+            return View("Create");
+        }
+
+        /*
         [HttpPost]
         public IActionResult Create(CreateBlog newBlog)
         {
@@ -80,34 +117,34 @@ namespace Brief.Controllers
                 cmd.Parameters.Add("@Title", someone);
             }
             */
-            /*
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                var blog = new Blog();
-                blog.CreatorName = rdr["CreatorName"].ToString();
-                blog.Title = rdr["Title"].ToString();
-                blog.Content = rdr["Content"].ToString();
-                model.Add(blog);
-            }
-        }
-        */
-            //_mapper.Map<BriefUser>(userModel);
-            /*
-        var result = await 
-        var result = await _userManager.CreateAsync(user, userModel.Password);
-        if (!result.Succeeded)
+        /*
+        SqlDataReader rdr = cmd.ExecuteReader();
+        while (rdr.Read())
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.TryAddModelError(error.Code, error.Description);
-            }
-            return View(userModel);
+            var blog = new Blog();
+            blog.CreatorName = rdr["CreatorName"].ToString();
+            blog.Title = rdr["Title"].ToString();
+            blog.Content = rdr["Content"].ToString();
+            model.Add(blog);
         }
-        await _userManager.AddToRoleAsync(user, "User");
-            */
-            //return RedirectToAction(nameof(HomeController.Index), "Home");
-            return View();
+    }
+    */
+        //_mapper.Map<BriefUser>(userModel);
+        /*
+    var result = await 
+    var result = await _userManager.CreateAsync(user, userModel.Password);
+    if (!result.Succeeded)
+    {
+        foreach (var error in result.Errors)
+        {
+            ModelState.TryAddModelError(error.Code, error.Description);
         }
+        return View(userModel);
+    }
+    await _userManager.AddToRoleAsync(user, "User");
+
+        //return RedirectToAction(nameof(HomeController.Index), "Home");
+        return View();
+    */
     }
 }

@@ -1,4 +1,5 @@
-﻿using Brief.Models;
+﻿using Brief.Data;
+using Brief.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -17,13 +18,20 @@ namespace Brief.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IConfiguration Configuration;
+        private BriefContext _context;
 
-        public HomeController(IConfiguration _configuration, ILogger<HomeController> logger)
+        public HomeController(IConfiguration _configuration, ILogger<HomeController> logger, BriefContext context)
         {
             Configuration = _configuration;
             _logger = logger;
+            _context = context;
         }
 
+        public async Task<IActionResult> Index(int pageNumber = 1)
+        {
+            return View(await PaginatedList<Blog>.CreateAsync(_context.Blogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
+        }
+        /*
         public ActionResult Index()
         {
             string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
@@ -39,7 +47,9 @@ namespace Brief.Controllers
                 while (rdr.Read())
                 {
                     var blog = new Blog();
+                    blog.Id = (int)rdr["Id"];
                     blog.CreatorName = rdr["CreatorName"].ToString();
+                    blog.TimeCreated = (DateTime)rdr["TimeCreated"];
                     blog.Title = rdr["Title"].ToString();
                     blog.Content = rdr["Content"].ToString();
                     model.Add(blog);
@@ -48,6 +58,7 @@ namespace Brief.Controllers
             return View(model);
             return View();
         }
+        */
         public IActionResult Blogs()
         {
             

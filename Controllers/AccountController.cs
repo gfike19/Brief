@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -89,6 +90,22 @@ namespace Brief.Controllers
         {
             await _signInManager.SignOutAsync();
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        public void GetUserInfo(string username)
+        {
+            SqlConnection con = new SqlConnection(GetConString.ConString());
+            string query = "SELECT FirstName, Id FROM AspNetUsers WHERE UserName = " + username;
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            con.Open();
+
+            LoggedUserModel user = new LoggedUserModel
+            {
+                Email = username,
+                CreatorFirstName = rdr["FirstName"].ToString(),
+                CreatorID = rdr["Id"].ToString()
+            };
         }
     }
 }

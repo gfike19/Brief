@@ -11,20 +11,11 @@
         <li class="nav-item">
             <a class="nav-link text-light" asp-area="" asp-controller="Blog" asp-action="Create">New Blog</a>
         </li>
-        <li class="nav-item">
-            @if (User.Identity.IsAuthenticated)
-            { 
-            @if (User.IsInRole("Admin"))
-            { 
-            <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Index">Admin Page</a>
-            }
-            }
-        </li>
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             @*<a class="nav-link text-light" style="animation:none" asp-area="" asp-page="" >@User.Identity.Name</a>*@
-            <p class="nav-link text-light m-0">@User.Identity.Name</p>
+            <p class="nav-link text-light m-0">@UserManager.GetUserAsync(User).Result.FirstName</p>
         </li>
         <li class="nav-item">
             <form class="nav-item" asp-area="Identity" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -44,7 +35,3 @@ else
         </li>
     </ul>
 }
-        
-
-
-

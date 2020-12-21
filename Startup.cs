@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Brief.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Brief.Areas.Identity.Data;
 using Brief.Models;
 using AutoMapper;
@@ -31,15 +30,9 @@ namespace Brief
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<BriefContext>(options =>
-        // options.UseSqlite(
-        options.UseSqlServer(
-            Configuration.GetConnectionString("DefaultConnection")));
-            /*
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            */
+                options.UseSqlServer(Configuration.GetConnectionString("BriefContextConnection")));
+
             services.AddIdentity<BriefUser, AppRole>()
-                //.AddDefaultUI(UIFramework.Bootstrap4)
                 .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<BriefContext>()
                 .AddDefaultTokenProviders();
@@ -85,7 +78,6 @@ namespace Brief
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -100,15 +92,11 @@ namespace Brief
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //MyIdentityDataInitializer.SeedData(userManager, roleManager);
-            //MyIdentityDataInitializer.SeedUsers(userManager);
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                    //pattern: "{controller=Home}/{action=Blogs}/{id?}");
             endpoints.MapRazorPages();
             });
 

@@ -27,7 +27,7 @@ namespace Brief.Controllers
         }
 
         [BindProperty]
-        public BriefUser.InputModel Input { get; set; }
+        public BriefUser Input { get; set; }
 
         [HttpGet]
         public IActionResult Register()
@@ -67,15 +67,16 @@ namespace Brief.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(BriefUser.InputModel input)
+        public async Task<IActionResult> Login(LoggedUserModel input)
         {
             if (!ModelState.IsValid)
             {
                 return View(input);
-            }            
+            }
             var result = await _signInManager.PasswordSignInAsync(input.Email, input.Password, input.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+                //GetUserInfo(input.Email);
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
             else

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Brief.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -14,23 +15,6 @@ namespace Brief.Areas.Identity.Data
     // Add profile data for application users by adding properties to the BriefUser class
     public class BriefUser : IdentityUser
     {
-
-        //[BindProperty]
-        //public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
 
         //public string FullName { get; internal set; }
         public string FirstName { get; set; }

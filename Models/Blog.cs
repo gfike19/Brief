@@ -13,7 +13,7 @@ namespace Brief.Models
     public class Blog
     {
         public int Id { get; set; }
-        public BriefUser Creator { get; set; }
+        public string CreatorId { get; set; }
         public string CreatorName { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
@@ -21,13 +21,19 @@ namespace Brief.Models
         public DateTime TimeCreated { get; set; }
         public int SaveDetails()
         {
-            SqlConnection con = new SqlConnection(GetConString.ConString());
-            string query = "INSERT INTO Blogs(Title, Content, CreatorName, TimeCreated) values ('" + Title + "','" + Content + "','" + CreatorName + "','" + TimeCreated + "')";
-            SqlCommand cmd = new SqlCommand(query, con);
-            con.Open();
-            int i = cmd.ExecuteNonQuery();
-            con.Close();
-            return i;
+            using(SqlConnection con = new SqlConnection(GetConString.ConString()))
+            using (SqlCommand cmd = con.CreateCommand())
+            {
+                cmd.CommandText = "INSERT INTO Blogs(Title, CreatorId, Content, CreatorName, TimeCreated) VALUES (@Title, @CreatorId, @Content, @CreatorName, @TimeCreated)";
+                cmd.Parameters.AddWithValue("@Title", Title);
+                cmd.Parameters.AddWithValue("@CreatorId", CreatorId);
+                cmd.Parameters.AddWithValue("@Content", Content);
+                cmd.Parameters.AddWithValue("@CreatorName", CreatorName);
+                cmd.Parameters.AddWithValue("@TimeCreated", TimeCreated);
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+                return i;
+            }            
         }
 
         public static class SeedBlogs

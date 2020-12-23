@@ -4,11 +4,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Brief.Areas.Identity.Data;
 using Brief.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Brief.Controllers
 {
@@ -16,6 +20,7 @@ namespace Brief.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ILogger<AdminController> _logger;
+        public IServiceCollection services;
         private IConfiguration Configuration;
 
 
@@ -46,6 +51,27 @@ namespace Brief.Controllers
                 cmd.ExecuteNonQuery();
             }
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        private async Task<ActionResult> MakeAdmin(IServiceProvider serviceProvider, string Email)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.RoleManager<AppRole>>();
+            var UserManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<BriefUser>>();
+
+            Microsoft.AspNetCore.Identity.IdentityResult roleResult;
+            //Adding Admin Role
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new AppRole("Admin"));
+            }
+
+            //var UserManager = serviceProvider.GetRequiredService<UserManager<BriefUser>>();
+            BriefUser user = await UserManager.FindByEmailAsync(Email);
+            await UserManager.AddToRoleAsync(user, "Admin");
+            return null;
         }
 
     }

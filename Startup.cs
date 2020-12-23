@@ -119,7 +119,6 @@ namespace Brief
             //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
             BriefUser user = await UserManager.FindByEmailAsync("test2@test.com");
-            var User = new BriefUser();
             await UserManager.AddToRoleAsync(user, "Admin");
         }
     }

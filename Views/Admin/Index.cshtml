@@ -1,9 +1,17 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Brief.Models.LoggedUserModel
 @{
-    ViewData["Title"] = "Admin Page";
+    ViewData["Title"] = "Blog - Title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Admin Page</h2>
 <h4>Only Admin can view this page.</h4>
+
+
+
+<form asp-controller="Admin" asp-action="MakeAdmin">
+    <label asp-for="@Model.Email"></label>
+    <input asp-for="@Model.Email" class="form-control" />
+    <a class="btn btn-danger" asp-area="" asp-controller="Admin" asp-action="MakeAdmin" asp-route-id="@Model.Email">Make User an Admin</a>
+</form>
+

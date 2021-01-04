@@ -15,7 +15,6 @@ using Brief.Areas.Identity.Data;
 using Brief.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Brief.Services;
 
 namespace Brief
 {
@@ -40,9 +39,8 @@ namespace Brief
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
 
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddControllersWithViews();
+
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>

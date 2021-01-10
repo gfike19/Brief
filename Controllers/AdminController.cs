@@ -31,22 +31,5 @@ namespace Brief.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
-        {
-            string connectionString = this.Configuration.GetConnectionString("BriefContextConnection");
-            string sql = "DELETE FROM dbo.Blogs WHERE id=" + id.ToString();
-            SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.CommandText = sql;
-            //cmd.Parameters.AddWithValue("@id", id);
-            using (conn)
-            {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            return View();
-        }
-
     }
 }

@@ -57,13 +57,36 @@ namespace Brief.Controllers
             int result = blogPost.SaveDetails();
             if (result > 0)
             {
-                ViewBag.Result = "Blog Posted Successfully";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
             else
             {
                 ViewBag.Result = "Something Went Wrong";
             }
+
             return View("Create");
-        }     
+
+        }
+
+        public async Task<ActionResult> Delete(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var blog = await _context.Blogs.FindAsync(id);
+
+            if (user.Id == blog.CreatorId || User.IsInRole("Admin"))
+            {
+                _context.Blogs.Remove(blog);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View("Index");
+        }
     }
 }

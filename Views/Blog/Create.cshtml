@@ -19,6 +19,32 @@
             <label class="control-label">Blog Title</label>
             <input class="form-control" name="txtTitle" />
         </div>
+        <div class="row">
+            <div class="form-group col-md-10 m-0">
+                <input class="form-control" placeholder="Search for a tag" />
+            </div>
+            <div class="form-group col-md-2 m-0 p-0">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+        <div class="row m-2">
+            @for (int i = 0; i < 7; i++)
+            {
+                <div class="tag-container">
+                    <small class="text-dark">Tech</small>
+                    <div class="d-inline-block">
+                        <button type="button" class="btn-tag">x</button>
+                    </div>
+                </div>
+                <div class="tag-container">
+                    <small class="text-dark">Animals</small>
+                    <div class="d-inline-block">
+                        <button type="button" class="btn-tag">x</button>
+                    </div>
+                </div>
+            }
+
+        </div>
         <div class="form-group">
             <label class="control-label">Body</label>
             <textarea name="txtContent" type="text" class="form-control blog-textarea" rows="10"> </textarea>
@@ -31,5 +57,5 @@
 
 <br />
 
-<h2 style="font-style:italic; color:deeppink">@ViewBag.Result</h2>
+<h2 class="text-danger" style="font-style:italic;">@ViewBag.Result</h2>
 

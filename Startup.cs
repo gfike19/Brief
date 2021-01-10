@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Brief.Areas.Identity.Data;
 using Brief.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Brief
 {
@@ -35,8 +36,11 @@ namespace Brief
             services.AddIdentity<BriefUser, AppRole>()
                 .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<BriefContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
             services.AddControllersWithViews();
+
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
@@ -100,7 +104,7 @@ namespace Brief
             endpoints.MapRazorPages();
             });
 
-            CreateUserRoles(services).Wait();
+            //CreateUserRoles(services).Wait();
         }
 
         private async Task CreateUserRoles(IServiceProvider serviceProvider)

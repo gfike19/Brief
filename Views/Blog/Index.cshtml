@@ -1,4 +1,12 @@
-﻿@model Brief.Models.Blog
+﻿@using Microsoft.AspNetCore.Identity
+@using Brief.Areas.Identity.Data
+
+@model Brief.Models.Blog
+
+@inject SignInManager<BriefUser> SignInManager
+@inject UserManager<BriefUser> UserManager
+
+
 @{
     ViewData["Title"] = "Blog - Title";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,6 +15,50 @@
 <head>
     <link rel="stylesheet" href="~/css/Brief.css" />
 </head>
+@if (UserManager.GetUserId(User) == Model.CreatorId || User.IsInRole("Admin"))
+{
+<div>
+    <h5 style="text-decoration:underline">Controls</h5>
+    <div class="border border-dark rounded p-1">
+        <div class="row m-0">
+            <div class="col-md-5 p-0">
+                <form class="search-form form-check-inline m-0 p-0" asp-controller="Tag" asp-action="Add">
+                    <div class="form-group col-md-10 m-0">
+                        <input class="form-control" placeholder="Search for a tag" />
+                    </div>
+                    <div class="form-group col-md-2 m-0 p-0">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-7 p-0">
+                <a class="btn btn-danger float-right" asp-controller="Blog" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="row m-1">
+            @for (int i = 0; i < 7; i++)
+            {
+                <div class="tag-container">
+                    <small class="text-dark">Tech</small>
+                    <div class="d-inline-block">
+                        <button type="button" class="btn-tag">x</button>
+                    </div>
+                </div>
+                <div class="tag-container">
+                    <small class="text-dark">Animals</small>
+                    <div class="d-inline-block">
+                        <button type="button" class="btn-tag">x</button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    
+</div>
+    
+}
 <div>
     <h1 class="display-3 mb-2">@Model.Title</h1>
     <div class="mb-1 text-muted float-left">@Model.TimeCreated</div>
@@ -17,16 +69,8 @@
 <div>
     <p class="border border-dark p-3"> @Model.Content </p>
 </div>
-@if (User.Identity.IsAuthenticated)
-{
-    @if (User.IsInRole("Admin"))
-    {
-<div>
-    <a class="btn btn-danger" asp-area="" asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id">Delete Blog</a>
 
-</div>
-    }
-}
+
 <div>
     <a href="../../Home" class="btn btn-dark" role="button">Back</a>
 </div>

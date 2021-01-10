@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
@@ -20,6 +21,9 @@ namespace Brief.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         //public int SaveDetails()
         //{

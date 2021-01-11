@@ -81,8 +81,21 @@ namespace Brief.Controllers
 
             if (user.Id == blog.CreatorId || User.IsInRole("Admin"))
             {
+                
                 _context.Blogs.Remove(blog);
                 _context.SaveChanges();
+                var delBlog = await _context.DeletedBlogs.FindAsync(id);
+                delBlog.DeletedBy = user.Id;
+                if (User.IsInRole("Admin"))
+                {
+                    delBlog.PostStatus = "Removed";
+                }
+                else
+                {
+                    delBlog.PostStatus = "Deleted";
+                }
+                _context.SaveChanges();
+                
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 

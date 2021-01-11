@@ -1,0 +1,65 @@
+﻿@model UserBlogList<Brief.Models.Blog>
+@{
+    ViewData["Title"] = "My Blogs";
+    ViewData["ActivePage"] = "History";
+
+    Layout = "../Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Brief.css" />
+</head>
+<h4 style="margin-bottom: 40px;"> @ViewData["Title"]</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center" style="width: 20%;">Date Posted</th>
+            <th scope="col" class="text-center" style="width: 40%;">Title</th>
+            <th scope="col" class="text-center" style="width: 15%;">Status</th>
+            <th scope="col" class="text-center" style="width: 25%;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TimeCreated.Date.ToShortDateString()</td>
+                <td>
+                    <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.Id" style="color:black">@item.Title</a>
+                </td>
+                <td>@item.PostStatus</td>
+                <td>
+                    <a class="btn btn-danger float-right m-1" asp-controller="Manage" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-info float-right m-1" asp-controller="Manage" asp-action="Delete" asp-route-id="@item.Id">Edit</a>                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+
+    string prevDisabled = "disabled";
+    string nextDisabled = "disabled";
+
+    if (Model.PreviousPage)
+    {
+        prevDisabled = "";
+    }
+    if (Model.NextPage)
+    {
+        prevDisabled = "";
+    }
+}
+
+
+<div>
+    <nav class="m-0">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a asp-action="History" asp-route-pageNumber="@(Model.PageIndex -1)" class="page-link text-dark @prevDisabled">Previous</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+            <li class="page-item"><a asp-action="History" asp-route-pageNumber="@(Model.PageIndex +1)" class="page-link text-dark @nextDisabled">Next</a></li>
+        </ul>
+    </nav>
+</div>

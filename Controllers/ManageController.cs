@@ -1,7 +1,10 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Brief.Areas.Identity.Data;
+using Brief.Data;
+using Brief.Models;
 using Brief.Models.Manage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -12,15 +15,17 @@ namespace Brief.Controllers
 {
     public partial class ManageController : Controller
     {
+        private readonly BriefContext _context;
         private readonly UserManager<BriefUser> _userManager;
         private readonly SignInManager<BriefUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
-        public ManageController( UserManager<BriefUser> userManager, SignInManager<BriefUser> signInManager, IEmailSender emailSender)
+        public ManageController(BriefContext context, UserManager<BriefUser> userManager, SignInManager<BriefUser> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [HttpGet]
@@ -96,6 +101,34 @@ namespace Brief.Controllers
 
             userInfo.StatusMessage = "Your email is unchanged.";
             return View("Email");
+        }
+
+        public async Task<IActionResult> History(int pageNumber = 1)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return View(await UserBlogList<Blog>.CreateAsync(_context.Blogs.Where(m => m.CreatorId == user.Id).OrderByDescending(a => a.TimeCreated), pageNumber, 25));
+            //return View(await UserBlogList<Blog>.CreateAsync(_context.Blogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
+        }
+
+        public async Task<ActionResult> Delete(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var blog = await _context.Blogs.FindAsync(id);
+
+            _context.Blogs.Remove(blog);
+            _context.SaveChanges();
+            var delBlog = await _context.DeletedBlogs.FindAsync(id);
+            delBlog.DeletedBy = user.Id;
+            delBlog.PostStatus = "Deleted";
+            _context.SaveChanges();
+
+            return RedirectToAction("History", "Manage");
         }
     }
 }

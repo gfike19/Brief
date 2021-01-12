@@ -4,14 +4,16 @@ using Brief.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Brief.Migrations
 {
     [DbContext(typeof(BriefContext))]
-    partial class BriefContextModelSnapshot : ModelSnapshot
+    [Migration("20210112170347_addPostStatus")]
+    partial class addPostStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

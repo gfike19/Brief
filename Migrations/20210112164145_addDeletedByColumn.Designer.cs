@@ -4,14 +4,16 @@ using Brief.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Brief.Migrations
 {
     [DbContext(typeof(BriefContext))]
-    partial class BriefContextModelSnapshot : ModelSnapshot
+    [Migration("20210112164145_addDeletedByColumn")]
+    partial class addDeletedByColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,6 +120,9 @@ namespace Brief.Migrations
                     b.Property<string>("CreatorName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PostStatus")
                         .HasColumnType("nvarchar(max)");
 
@@ -129,25 +134,7 @@ namespace Brief.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Brief.Models.DeletedBlog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeletedBlogs");
+                    b.ToTable("Blog");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -67,6 +67,49 @@ namespace Brief.Controllers
             return View(userInfo);
         }
 
+        [HttpGet]
+        public IActionResult Password()
+        {
+            return View();
+        }
+
+        [BindProperty]
+        public ChangePasswordModel Input { get; set; }
+
+        [HttpPost]
+        public async Task<IActionResult> Password(ChangePasswordModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(input);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            //input.OldPassword = HttpContext.Request.Form["txtOldPassword"].ToString();
+            //input.NewPassword = HttpContext.Request.Form["txtNewPassword"].ToString();
+            //input.ConfirmPassword = HttpContext.Request.Form["txtConfirmPassword"].ToString();
+
+
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, input.OldPassword, input.NewPassword);
+            //if (!changePasswordResult.Succeeded)
+            //{
+            //    foreach (var error in changePasswordResult.Errors)
+            //    {
+            //        ModelState.AddModelError(string.Empty, error.Description);
+            //    }
+            //    return RedirectToAction("Index","Home");
+            //}
+
+            await _signInManager.RefreshSignInAsync(user);
+            input.StatusMessage = "Your password has been changed.";
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdateEmail()
         {

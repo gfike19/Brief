@@ -20,19 +20,18 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" style="padding-bottom: 0; padding-top: 0;" asp-controller="Manage" asp-action="History" title="Blogs">My Blogs</a>
+                        <a class="nav-link text-dark dropdown-item menu-item" style="padding-bottom: 0; padding-top: 0;" asp-controller="Manage" asp-action="History" title="Blogs">My Blogs</a>
                     </li>
                     <li class="dropdown-divider"></li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" style="padding-bottom: 0; padding-top: 0;" asp-controller="Manage" asp-action="Index" title="Manage">Manage</a>
+                        <a class="nav-link text-dark dropdown-item menu-item" style="padding-bottom: 0; padding-top: 0;" asp-controller="Manage" asp-action="Index" title="Manage">Manage</a>
                     </li>
                     <li class="dropdown-divider"></li>
-                    <li class="nav-item">
+                    <li class="nav-item dropdown-item pt-0 pb-0 pl-0 menu-item">
                         <form class="nav-item" asp-area="Identity" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button type="submit" class="nav-link text-dark mt-0" style="background-color:transparent; border:transparent; width: 100%; text-align:left; padding-bottom: 0; padding-top: 0;">Logout</button>
+                            <button type="submit" class="nav-link text-dark mt-0 nav-btn" style="background-color:transparent; border:transparent; width: 100%; text-align:left; padding-bottom: 0; padding-top: 0;">Logout</button>
                         </form>
                     </li>
-
                 </ul>
             </div>
         </li>

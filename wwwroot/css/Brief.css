@@ -71,3 +71,20 @@
     outline: 0;
     border: transparent;
 }
+
+.menu-item {
+
+}
+.menu-item:active {
+    background-color:transparent;
+}
+
+.nav-btn {
+
+}
+
+.nav-btn:focus, .nav-btn:active {
+    outline: none !important;
+    box-shadow: none;
+    background-color: transparent;
+}

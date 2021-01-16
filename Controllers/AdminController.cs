@@ -44,56 +44,12 @@ namespace Brief.Controllers
         public async Task<IActionResult> MakeAdmin(string email)
         {
             BriefUser user = await _userManager.FindByEmailAsync(email);
-            /*
-            if(user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-            //string userId = user.Id;
-            */
-
-            //var UserManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<BriefUser>>();
-            //BriefUser user = await UserManager.FindByEmailAsync(email);
-            await _userManager.AddToRoleAsync(user, "Admin");
-
-
-
-            return View();
-        }
-        /*
-         * {
-            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
-            //if (!ModelState.IsValid)
-            //{
-            //    await LoadAsync(user);
-            //    return Page();
-            //}
-
-            EmailModel userInfo = new EmailModel
-            {
-                Email = await _userManager.GetEmailAsync(user),
-                NewEmail = HttpContext.Request.Form["txtNewEmail"].ToString(),
-                IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user)
-            };
-
-            //var email = await _userManager.GetEmailAsync(user);
-            //var newEmail = HttpContext.Request.Form["txtNewEmail"].ToString();
-            if (userInfo.NewEmail != userInfo.Email)
-            {
-                await _userManager.SetEmailAsync(user, userInfo.NewEmail);
-
-                userInfo.StatusMessage = "Your Email was updated successfully.";
-                return RedirectToAction(nameof(ManageController.Email), "Manage");
-            }
-
-            userInfo.StatusMessage = "Your email is unchanged.";
-            return View("Email");
-        }*/
-
+            await _userManager.AddToRoleAsync(user, "Admin");
+            return View("Index");
+        }
     }
 }

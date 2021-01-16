@@ -1,17 +1,25 @@
-﻿@model Brief.Models.LoggedUserModel
+﻿
+@model Brief.Models.LoggedUserModel
+
 @{
     ViewData["Title"] = "Blog - Title";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Admin Page</h2>asp
-<h4>Only Admin can view this page.</h4>
+<head>
+    <link rel="stylesheet" href="~/css/Brief.css" />
+</head>
 
+<h2>Admin Page</h2>
+<h6>Only Admin can view this page.</h6>
+<br />
+<br />
 
-
+<h4>Upgrade User to Admin Account</h4>
 <form asp-controller="Admin" asp-action="MakeAdmin">
     <label asp-for="Email"></label>
     <input asp-for="Email" class="form-control" />
+    <br />
     <button class="btn btn-danger" type="submit" asp-area="" asp-controller="Admin" asp-action="MakeAdmin" asp-route-email=Email>Make User an Admin</button>
 </form>
 

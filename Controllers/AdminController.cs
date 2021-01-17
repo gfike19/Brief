@@ -44,8 +44,14 @@ namespace Brief.Controllers
             return View(adminModel);
         }
 
-        public IActionResult RecentlyPosted()
+        public async Task<IActionResult> RecentlyPosted(int pageNumber = 1)
         {
+            return View(await PaginatedList<Blog>.CreateAsync(_context.Blogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
+        }
+
+        public async Task<IActionResult> RecentlyDeleted(int pageNumber = 1)
+        {
+            //return View(await PaginatedList<Blog>.CreateAsync(_context.DeletedBlogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
             return View();
         }
 
@@ -58,6 +64,27 @@ namespace Brief.Controllers
             }
             await _userManager.AddToRoleAsync(user, "Admin");
             return View("Index");
+        }
+
+        public async Task<ActionResult> Delete(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var blog = await _context.Blogs.FindAsync(id);
+
+            _context.Blogs.Remove(blog);
+            _context.SaveChanges();
+            var delBlog = await _context.DeletedBlogs.FindAsync(id);
+            delBlog.DeletedBy = user.Id;
+            delBlog.PostStatus = "Removed";
+            _context.SaveChanges();
+
+            return RedirectToAction("RecentlyPosted", "Admin");
         }
     }
 }

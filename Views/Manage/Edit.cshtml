@@ -1,6 +1,7 @@
 ﻿@model Brief.Models.Blog
 @{
-    ViewBag.Title = "Blog Creation";
+    ViewBag.Title = "Edit Blog";
+    Layout = "../Shared/_Layout.cshtml";
 }
 
 <head>
@@ -9,13 +10,13 @@
 </head>
 
 <div class="container">
-    <h1 class="mt-3">New Blog Entry</h1>
+    <h1 class="mt-3">Edit Blog</h1>
 </div>
 
 <hr />
 
 <div class="container">
-    <form id="blogCreation" asp-controller="Blog" asp-action="GetBlogDetails" method="post">
+    <form id="blogCreation" asp-controller="Manage" asp-action="UpdateDetails" asp-route-blogID="@Model.BlogID" method="post">
         <div class="form-group">
             <label class="control-label">Blog Title</label>
             <input class="form-control" name="txtTitle" value="@Model.Title" />
@@ -27,9 +28,22 @@
             <div class="form-group col-md-2 m-0 p-0">
                 <input type="button" id="tagAdd" value="Add" class="btn btn-secondary bg-dark" />
                 <input id="tagString" type="hidden" value="" name="tagString" />
+                <input id="removeString" type="hidden" value="" name="removeString" />
             </div>
         </div>
-        <div  id ="tagging" class="row m-2">
+        <div id="tagging" class="row m-2">
+            @if (Model.TagList != null && Model.TagList.Any())
+            {
+                @foreach (var tag in Model.TagList)
+                {
+                    <div id ="@tag.TagName" class="tag-container">
+                        <small class="text-dark">@tag.TagName</small>
+                        <div class="d-inline-block">
+                            <button onclick="RemoveTag1(this)" type="button" class="btn-tag">&times;</button>
+                        </div>
+                    </div>
+                }
+            }
         </div>
         <div class="form-group">
             <label class="control-label">Body</label>
@@ -44,6 +58,7 @@
 <br />
 
 <h2 class="text-danger" style="font-style:italic;">@ViewBag.Result</h2>
+
 
 @section scripts{
     <script type="text/javascript">
@@ -74,7 +89,7 @@
 
             newBtn.type = "button";
             newDiv1.id = tagName;
-            newBtn.setAttribute("onclick", "RemoveTag(this)")
+            newBtn.setAttribute("onclick", "RemoveTag2(this)")
 
             //add content to elements
             newBtn.innerHTML = "&times;"
@@ -93,7 +108,21 @@
             tagText.value = "";
         });
 
-        function RemoveTag(element) {
+        function RemoveTag1(element) {
+            var deletedTag = document.getElementById(element.parentElement.parentElement.id);
+            var removeString = document.getElementById("removeString");
+
+            if (removeString.value == "") {
+                removeString.value = deletedTag.id;
+            }
+            else {
+                removeString.value = removeString.value + "," + deletedTag.id;
+            }
+
+            deletedTag.remove();
+        }
+
+        function RemoveTag2(element) {
             var deletedTag = document.getElementById(element.parentElement.parentElement.id);
             var tagName = deletedTag.id
             var tagString = document.getElementById("tagString");

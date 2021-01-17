@@ -6,18 +6,19 @@
 </head>
 
 <div>
-    <h1 class="display-4 mb-4 text-center">Recent Blogs</h1>
-</div>
-<div class="form-group float-right mb-0">
-    <div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle bg-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort By
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortBy="newest">Newest</a>
-            <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortBy="oldest">Oldest</a>
+
+    <div class="display-4 form-group float-right">
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle bg-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortBy="newest">Newest</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-sortBy="oldest">Oldest</a>
+            </div>
         </div>
     </div>
+    <h1 class="display-4 mb-4 text-center">Blogs</h1>
 </div>
 <div class="clearfix"></div>
 <hr />
@@ -41,7 +42,7 @@
                         <p class="mb-auto">@item.Content</p>
                     </div>
                     <div class="card-footer bg-dark text-right" style="width: 100%">
-                        <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.Id" class="stretched-link text-white">Continue reading</a>
+                        <a asp-controller="Blog" asp-action="Index" asp-route-blogID="@item.BlogID" class="stretched-link text-white">Continue reading</a>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,6 @@
     var prevDisabled = !Model.PreviousPage ? "disabled" : "";
     var nextDisabled = !Model.NextPage ? "disabled" : "";
 }
-
 
 <div>
     <nav class="m-0">

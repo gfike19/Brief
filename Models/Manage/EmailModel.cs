@@ -17,8 +17,11 @@ namespace Brief.Models.Manage
 
         [Required]
         [EmailAddress]
-        [Display(Name = "New email")]
+        [Display(Name = "New Email")]
         public string NewEmail { get; set; }
+
+        [Display(Name = "Confirm New Email")]
+        public string ConfirmEmail { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }

@@ -88,3 +88,7 @@
     box-shadow: none;
     background-color: transparent;
 }
+
+td.blog-table {
+    vertical-align: middle;
+}

@@ -22,14 +22,14 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.TimeCreated.Date.ToShortDateString()</td>
-                <td>
-                    <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.Id" style="color:black">@item.Title</a>
+                <td class="blog-table">@item.TimeCreated.Date.ToShortDateString()</td>
+                <td class="blog-table">
+                    <a asp-controller="Blog" asp-action="Index" asp-route-blogID="@item.BlogID" style="color:black">@item.Title</a>
                 </td>
-                <td>@item.PostStatus</td>
+                <td class="blog-table">@item.PostStatus</td>
                 <td>
                     <a class="btn btn-danger float-right m-1" asp-controller="Manage" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    <a class="btn btn-info float-right m-1" asp-controller="Manage" asp-action="Delete" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info float-right m-1" asp-controller="Manage" asp-action="Edit" asp-route-blogID="@item.BlogID">Edit</a>
                 </td>
             </tr>
         }

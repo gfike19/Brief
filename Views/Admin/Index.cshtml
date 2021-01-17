@@ -1,5 +1,12 @@
-﻿
-@model Brief.Models.LoggedUserModel
+﻿@using Brief.ViewModels
+@using Microsoft.AspNetCore.Identity
+@using Brief.Areas.Identity.Data
+@using Microsoft.EntityFrameworkCore;
+
+@model Brief.ViewModels.AdminVM
+
+@inject SignInManager<BriefUser> SignInManager
+@inject UserManager<BriefUser> UserManager
 
 @{
     ViewData["Title"] = "Blog - Title";
@@ -14,12 +21,23 @@
 <h6>Only Admin can view this page.</h6>
 <br />
 <br />
+<h4>Recently Posted Blogs</h4>
+<form>
+    <button type="submit" asp-area="" asp-controller="Admin" asp-action="RecentlyPosted">View Recent Blogs</button>
+</form>
+<br />
+<br />
+<h4>Recently Deleted Blogs</h4>
+<form>
+    <button type="submit" asp-area="" asp-controller="Admin" asp-action="RecentlyDeleted">View Recently Deleted Blogs</button>
+</form>
+<br />
+<br />
 
 <h4>Upgrade User to Admin Account</h4>
-<form asp-controller="Admin" asp-action="MakeAdmin">
-    <label asp-for="Email"></label>
-    <input asp-for="Email" class="form-control" />
+<form asp-controller="Admin" asp-action="MakeAdmin" asp-route-email=email>
+    <label name="email" asp-for="users.Email">Email: </label>
+    <input name="email" asp-for="users.Email" class="form-control" />
     <br />
-    <button class="btn btn-danger" type="submit" asp-area="" asp-controller="Admin" asp-action="MakeAdmin" asp-route-email=Email>Make User an Admin</button>
+    <button class="btn btn-danger" type="submit" asp-area="" asp-controller="Admin" asp-action="MakeAdmin">Make User an Admin</button>
 </form>
-

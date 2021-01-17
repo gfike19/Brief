@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Brief.Data;
+using Brief.ViewModels;
 
 namespace Brief.Controllers
 {
@@ -37,6 +38,13 @@ namespace Brief.Controllers
         }
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
+        {
+            AdminVM adminModel = new AdminVM();
+            //adminModel.context.BriefUsers.
+            return View(adminModel);
+        }
+
+        public IActionResult RecentlyPosted()
         {
             return View();
         }

@@ -11,8 +11,9 @@
     <thead>
         <tr>
             <th scope="col" class="text-center" style="width: 20%;">Date Posted</th>
-            <th scope="col" class="text-center" style="width: 40%;">Title</th>
-            <th scope="col" class="text-center" style="width: 15%;">Creator</th>
+            <th scope="col" class="text-center" style="width: 20%;">Title</th>
+            <th scope="col" class="text-center" style="width: 20%;">Creator</th>
+            <th scope="col" class="text-center" style="width: 20%;">Status</th>
             <th scope="col" class="text-center" style="width: 25%;">Action</th>
         </tr>
     </thead>
@@ -25,8 +26,9 @@
                     <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.Id" style="color:black">@item.Title</a>
                 </td>
                 <td>@item.CreatorName</td>
+                <td>@item.PostStatus</td>
                 <td>
-                    <a class="btn btn-danger m-1 float-right" asp-controller="Admin" asp-action="UndoDelete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-primary m-1 " asp-controller="Admin" asp-action="UndoDelete" asp-route-id="@item.Id">Restore</a>
                 </td>
             </tr>
         }

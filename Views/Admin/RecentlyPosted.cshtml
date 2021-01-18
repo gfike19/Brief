@@ -1,13 +1,10 @@
 ﻿@model PaginatedList<Brief.Models.Blog>
-@{ ViewData["Title"] = "Home"; }
+@{ ViewData["Title"] = "Recently Posted Blogs"; }
 
 <head>
     <link rel="stylesheet" href="~/css/Brief.css" />
 </head>
 
-<div>
-    <h1 class="display-4 mb-4 text-center">Recent Blogs</h1>
-</div>
 
 <h4 style="margin-bottom: 40px;"> @ViewData["Title"]</h4>
 <table class="table table-bordered">
@@ -29,10 +26,12 @@
                 </td>
                 <td>@item.CreatorName</td>
                 <td>
-                    <a class="btn btn-danger m-1 float-right" asp-controller="Admin" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-danger m-1" asp-controller="Admin" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<a class="btn btn-info text-white" asp-controller="Admin" asp-action="Index" style="color:black">Return to Admin Page</a>
 

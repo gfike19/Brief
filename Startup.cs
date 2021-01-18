@@ -104,7 +104,7 @@ namespace Brief
             endpoints.MapRazorPages();
             });
 
-            //CreateUserRoles(services).Wait();
+            CreateUserRoles(services).Wait();
         }
 
         private async Task CreateUserRoles(IServiceProvider serviceProvider)
@@ -122,8 +122,8 @@ namespace Brief
             }
             //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
-            BriefUser user = await UserManager.FindByEmailAsync("test2@test.com");
-            await UserManager.AddToRoleAsync(user, "Admin");
+            //BriefUser user = await UserManager.FindByEmailAsync("daniel.prescott.roberts@gmail.com");
+            //await UserManager.AddToRoleAsync(user, "Admin");
         }
     }
 }

@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model PaginatedList<Brief.Models.DeletedBlog>
+@{ ViewData["Title"] = "Recently Deleted Blogs"; }
+
+<head>
+    <link rel="stylesheet" href="~/css/Brief.css" />
+</head>
+
+
+<h4 style="margin-bottom: 40px;"> @ViewData["Title"]</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center" style="width: 20%;">Date Posted</th>
+            <th scope="col" class="text-center" style="width: 40%;">Title</th>
+            <th scope="col" class="text-center" style="width: 15%;">Creator</th>
+            <th scope="col" class="text-center" style="width: 25%;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TimeCreated</td>
+                <td>
+                    <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.Id" style="color:black">@item.Title</a>
+                </td>
+                <td>@item.CreatorName</td>
+                <td>
+                    <a class="btn btn-danger m-1 float-right" asp-controller="Admin" asp-action="UndoDelete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

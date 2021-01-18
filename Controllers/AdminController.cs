@@ -51,8 +51,8 @@ namespace Brief.Controllers
 
         public async Task<IActionResult> RecentlyDeleted(int pageNumber = 1)
         {
-            //return View(await PaginatedList<Blog>.CreateAsync(_context.DeletedBlogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
-            return View();
+            return View(await PaginatedList<DeletedBlog>.CreateAsync(_context.DeletedBlogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
+            //return View();
         }
 
         public async Task<IActionResult> MakeAdmin(string email)
@@ -86,5 +86,25 @@ namespace Brief.Controllers
 
             return RedirectToAction("RecentlyPosted", "Admin");
         }
+
+        public async Task<ActionResult> UndoDelete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var delBlog = await _context.DeletedBlogs.FindAsync(id);
+
+            _context.DeletedBlogs.Remove(delBlog);
+            _context.SaveChanges();
+            var blog = await _context.Blogs.FindAsync(id);
+            blog.PostStatus = null;
+            _context.SaveChanges();
+
+            return RedirectToAction("RecentlyDeleted", "Admin");
+        }
+
     }
 }

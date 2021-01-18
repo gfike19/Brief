@@ -18,5 +18,14 @@ namespace Brief.Models
         public string PostStatus { get; set; }
         
         public string DeletedBy { get; set; }
+
+        //public int Id { get; set; }
+        public string CreatorId { get; set; }
+        public string CreatorName { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string Comments { get; set; }
+        public DateTime TimeCreated { get; set; }
+        //public string PostStatus { get; set; }
     }
 }

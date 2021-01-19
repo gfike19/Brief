@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Brief.Areas.Identity.Data;
 using Brief.Models;
-using Microsoft.AspNetCore.Authentication;
-//using Brief.ViewModels;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Brief.Controllers
@@ -96,8 +94,11 @@ namespace Brief.Controllers
         public void GetUserInfo(string username)
         {
             SqlConnection con = new SqlConnection(GetConString.ConString());
-            string query = "SELECT FirstName, Id FROM AspNetUsers WHERE UserName = " + username;
+            //string query = "SELECT FirstName, Id FROM AspNetUsers WHERE UserName = " + username;
+            string query = "SELECT FirstName, Id FROM AspNetUsers WHERE UserName = @UserName";
             SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.Add(new SqlParameter("@UserName", System.Data.SqlDbType.NVarChar));
+            cmd.Parameters["@UserName"].Value = username;
             SqlDataReader rdr = cmd.ExecuteReader();
             con.Open();
 

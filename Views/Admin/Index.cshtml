@@ -18,7 +18,7 @@
 </head>
 
 <h2>Admin Page</h2>
-<h6>Only Admin can view this page.</h6>
+<h6>Only Admin Accounts can view this page.</h6>
 <br />
 <br />
 <h4>Recently Posted Blogs</h4>
@@ -37,7 +37,7 @@
 <h4>Upgrade User to Admin Account</h4>
 <form asp-controller="Admin" asp-action="MakeAdmin" asp-route-email=email>
     <label name="email" asp-for="users.Email">Email: </label>
-    <input name="email" asp-for="users.Email" class="form-control" />
+    <input name="email" asp-for="users.Email" class="form-control" required />
     <br />
     <button class="btn btn-danger" type="submit" asp-area="" asp-controller="Admin" asp-action="MakeAdmin">Make User an Admin</button>
 </form>

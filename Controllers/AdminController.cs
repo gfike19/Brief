@@ -44,17 +44,19 @@ namespace Brief.Controllers
             return View(adminModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RecentlyPosted(int pageNumber = 1)
         {
             return View(await PaginatedList<Blog>.CreateAsync(_context.Blogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RecentlyDeleted(int pageNumber = 1)
         {
             return View(await PaginatedList<DeletedBlog>.CreateAsync(_context.DeletedBlogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
-            //return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> MakeAdmin(string email)
         {
             BriefUser user = await _userManager.FindByEmailAsync(email);
@@ -66,6 +68,7 @@ namespace Brief.Controllers
             return View("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
 
@@ -87,6 +90,7 @@ namespace Brief.Controllers
             return RedirectToAction("RecentlyPosted", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UndoDelete(int? id)
         {
             if (id == null)
@@ -94,7 +98,7 @@ namespace Brief.Controllers
                 return NotFound();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            //var user = await _userManager.GetUserAsync(User);
             var delBlog = await _context.DeletedBlogs.FindAsync(id);
 
             _context.DeletedBlogs.Remove(delBlog);
@@ -105,6 +109,5 @@ namespace Brief.Controllers
 
             return RedirectToAction("RecentlyDeleted", "Admin");
         }
-
     }
 }

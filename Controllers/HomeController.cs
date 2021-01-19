@@ -19,9 +19,15 @@ namespace Brief.Controllers
             
         }
 
-        public async Task<IActionResult> Index(int pageNumber=1)
+        public async Task<IActionResult> Index(int pageNumber=1, string sortBy="newest")
         {
-            return View(await PaginatedList<Blog>.CreateAsync(_context.Blogs.OrderByDescending(a => a.TimeCreated), pageNumber,15));
+            if (sortBy == "oldest")
+            {
+                return View(await PaginatedList<Blog>.CreateAsync(_context.Blogs.OrderBy(a => a.TimeCreated), pageNumber, 15));
+
+            }
+            return View(await PaginatedList<Blog>.CreateAsync(_context.Blogs.OrderByDescending(a => a.TimeCreated), pageNumber, 15));
+
         }
 
         public IActionResult Privacy()

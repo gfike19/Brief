@@ -22,6 +22,8 @@ namespace Brief.Data
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<DeletedBlog> DeletedBlogs { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<BlogTag> BlogTags { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

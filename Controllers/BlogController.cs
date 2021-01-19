@@ -129,6 +129,7 @@ namespace Brief.Controllers
                 _context.SaveChanges();
                 var delBlog = await _context.DeletedBlogs.FindAsync(id);
                 delBlog.DeletedBy = user.Id;
+                delBlog.BlogID = blog.BlogID;
                 if (User.IsInRole("Admin"))
                 {
                     delBlog.PostStatus = "Removed";

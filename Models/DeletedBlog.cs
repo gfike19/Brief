@@ -26,6 +26,7 @@ namespace Brief.Models
         public string Content { get; set; }
         public string Comments { get; set; }
         public DateTime TimeCreated { get; set; }
+        public string BlogID { get; set; }
         //public string PostStatus { get; set; }
     }
 }

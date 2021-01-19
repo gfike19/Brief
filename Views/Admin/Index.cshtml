@@ -17,27 +17,44 @@
     <link rel="stylesheet" href="~/css/Brief.css" />
 </head>
 
-<h2>Admin Page</h2>
-<h6>Only Admin Accounts can view this page.</h6>
+<div class="mb-2">
+    <a href="../../Home" class="btn btn-dark" role="button">Home</a>
+</div>
+<div>
+    <h2>Admin Controls</h2>
+    <hr />
+</div>
+
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-md-6 col-sm-12 text-center mb-2">
+            <h4>Recently Posted Blogs</h4>
+            <a class="btn btn-dark" asp-controller="Admin" asp-action="RecentlyPosted" style="justify-content:center">Posted Blogs</a>
+        </div>
+        <div class="col-md-6 col-sm-12 text-center mb-2">
+            <h4>Recently Deleted Blogs</h4>
+            <a class="btn btn-dark" asp-controller="Admin" asp-action="RecentlyDeleted">Deleted Blogs</a>
+        </div>
+    </div>
+</div>
 <br />
-<br />
-<h4>Recently Posted Blogs</h4>
-<br />
-<a class="btn btn-info text-white" asp-controller="Admin" asp-action="RecentlyPosted" style="color:black">View Recently Posted Blogs</a>
+<div class="container">
+    <div class="row mb-2">
+        <h4 class="ml-2">Upgrade User to Admin Account</h4>
+    </div>
+    <div class="container">
+        <form class="form-inline" id="AdminCreation" asp-controller="Admin" asp-action="MakeAdmin" asp-route-email=email>
+            <div class="form-group">
+                <label class="mr-1" name="email" asp-for="users.Email" style="width: 50px;">Email: </label>
+                <input name="email" asp-for="users.Email" class="form-control mr-1" placeholder="Enter Email" required style="width: 300px;" />
+            </div>
+
+            <br />
+            <button class="btn btn-success" type="submit" asp-area="" asp-controller="Admin" asp-action="MakeAdmin">Promote</button>
+        </form>
+    </div>
+</div>
 
 <br />
-<br />
-<h4>Recently Deleted Blogs</h4>
-<br />
-<a class="btn btn-info text-white" asp-controller="Admin" asp-action="RecentlyDeleted" style="color:black">View Recently Deleted Blogs</a>
 
-<br />
-<br />
 
-<h4>Upgrade User to Admin Account</h4>
-<form asp-controller="Admin" asp-action="MakeAdmin" asp-route-email=email>
-    <label name="email" asp-for="users.Email">Email: </label>
-    <input name="email" asp-for="users.Email" class="form-control" required />
-    <br />
-    <button class="btn btn-danger" type="submit" asp-area="" asp-controller="Admin" asp-action="MakeAdmin">Make User an Admin</button>
-</form>

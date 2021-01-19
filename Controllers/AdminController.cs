@@ -37,10 +37,17 @@ namespace Brief.Controllers
             _context = context;
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
             AdminVM adminModel = new AdminVM();
-            //adminModel.context.BriefUsers.
+
             return View(adminModel);
         }
 
@@ -78,12 +85,23 @@ namespace Brief.Controllers
             }
 
             var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
             var blog = await _context.Blogs.FindAsync(id);
+
+            if (blog == null)
+            {
+                return RedirectToAction("RecentlyPosted", "Admin");
+            }
 
             _context.Blogs.Remove(blog);
             _context.SaveChanges();
             var delBlog = await _context.DeletedBlogs.FindAsync(id);
             delBlog.DeletedBy = user.Id;
+            delBlog.BlogID = blog.BlogID;
             delBlog.PostStatus = "Removed";
             _context.SaveChanges();
 
@@ -98,13 +116,23 @@ namespace Brief.Controllers
                 return NotFound();
             }
 
-            //var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
             var delBlog = await _context.DeletedBlogs.FindAsync(id);
+            if (delBlog == null)
+            {
+                return RedirectToAction("RecentlyPosted", "Admin");
+            }
 
             _context.DeletedBlogs.Remove(delBlog);
             _context.SaveChanges();
             var blog = await _context.Blogs.FindAsync(id);
-            blog.PostStatus = null;
+            blog.PostStatus = "Posted";
+            blog.BlogID = delBlog.BlogID;
             _context.SaveChanges();
 
             return RedirectToAction("RecentlyDeleted", "Admin");

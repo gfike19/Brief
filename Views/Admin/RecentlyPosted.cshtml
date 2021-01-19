@@ -5,8 +5,13 @@
     <link rel="stylesheet" href="~/css/Brief.css" />
 </head>
 
+<div class="mb-2">
+    <a class="btn btn-dark" asp-controller="Admin" asp-action="Index">Back</a>
+</div>
+<div>
+    <h4 style="margin-bottom: 40px;"> @ViewData["Title"]</h4>
+</div>
 
-<h4 style="margin-bottom: 40px;"> @ViewData["Title"]</h4>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -20,11 +25,11 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.TimeCreated</td>
-                <td>
-                    <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.Id" style="color:black">@item.Title</a>
+                <td class="blog-table">@item.TimeCreated.Date.ToShortDateString()</td>
+                <td class="blog-table">
+                    <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.BlogID" style="color:black">@item.Title</a>
                 </td>
-                <td>@item.CreatorName</td>
+                <td class="blog-table">@item.CreatorName</td>
                 <td>
                     <a class="btn btn-danger m-1" asp-controller="Admin" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
@@ -33,5 +38,4 @@
     </tbody>
 </table>
 
-<a class="btn btn-info text-white" asp-controller="Admin" asp-action="Index" style="color:black">Return to Admin Page</a>
 

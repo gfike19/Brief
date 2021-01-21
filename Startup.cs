@@ -100,7 +100,7 @@ namespace Brief
             endpoints.MapRazorPages();
             });
 
-            CreateUserRoles(services).Wait();
+            //CreateUserRoles(services).Wait();
         }
 
         private async Task CreateUserRoles(IServiceProvider serviceProvider)

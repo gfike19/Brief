@@ -2,6 +2,10 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
+      "connectionId": "Context"
+    },
+    "mssql2": {
+      "type": "mssql",
       "connectionId": "BriefContextConnection"
     }
   }
